@@ -1,7 +1,7 @@
-﻿using AdvisorManager.Application.DTOs;
+﻿using AdvisorManager.Application.Models.Advisor;
 using MediatR;
 
-namespace AdvisorManager.Application.Requests.Commands
+namespace AdvisorManager.Application.Requests.Advisor.Commands
 {
     public class CreateAdvisorCommand : IRequest<AdvisorDto>
     {

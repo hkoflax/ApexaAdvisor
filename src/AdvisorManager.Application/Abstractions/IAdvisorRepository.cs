@@ -1,6 +1,6 @@
 ﻿using AdvisorManager.Domain;
 
-namespace AdvisorManager.Application.Abstractions
+namespace AdvisorManager.Application
 {
     public interface IAdvisorRepository
     {

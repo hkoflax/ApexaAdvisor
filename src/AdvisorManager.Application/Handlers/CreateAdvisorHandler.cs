@@ -1,13 +1,12 @@
-﻿using AdvisorManager.Application.Abstractions;
-using AdvisorManager.Application.DTOs;
-using AdvisorManager.Application.Requests.Commands;
+﻿using AdvisorManager.Application.Models.Advisor;
+using AdvisorManager.Application.Requests.Advisor.Commands;
 using AdvisorManager.Domain;
 using AutoMapper;
 using MediatR;
 
 namespace AdvisorManager.Application.Handlers
 {
-    public class CreateAdvisorCommandHandler(IAdvisorRepository advisorRepository, IMapper mapper) : IRequestHandler<CreateAdvisorCommand, AdvisorDto>
+    public class CreateAdvisorHandler(IAdvisorRepository advisorRepository, IMapper mapper) : IRequestHandler<CreateAdvisorCommand, AdvisorDto>
     {
         private readonly IAdvisorRepository _advisorRepository = advisorRepository ?? throw new ArgumentNullException(nameof(advisorRepository));
         private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

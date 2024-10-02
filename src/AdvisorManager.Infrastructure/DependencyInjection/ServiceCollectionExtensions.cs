@@ -1,4 +1,4 @@
-﻿using AdvisorManager.Application.Abstractions;
+﻿using AdvisorManager.Application;
 using AdvisorManager.Infrastructure.Persistence.Contexts;
 using AdvisorManager.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +18,7 @@ namespace AdvisorManager.Infrastructure.DependencyInjection
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AdvisorContext>(options => options.UseInMemoryDatabase("AdvisorsDb"));
-            services.AddTransient<IAdvisorRepository, AdvisorRepository>();        
+            services.AddScoped<IAdvisorRepository, AdvisorRepository>();        
             return services;
         }
     }

@@ -1,4 +1,4 @@
-﻿using AdvisorManager.Application.Abstractions;
+﻿using AdvisorManager.Application;
 using AdvisorManager.Domain;
 using AdvisorManager.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
