@@ -4,9 +4,9 @@ namespace AdvisorManager.Application.Requests
 {
     public static class Queries
     {
-        public static GetAdvisorList GetAdvisorList()
+        public static GetAdvisorListRequest GetAdvisorList()
             => new();
-        public static GetAdvisorById GetAdvisorById(Guid advisorId)
+        public static GetAdvisorByIdRequest GetAdvisorById(Guid advisorId)
             => new(advisorId);
         
     }

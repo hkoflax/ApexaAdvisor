@@ -7,28 +7,27 @@ using MediatR;
 
 namespace AdvisorManager.Application.Handlers
 {
-    public class GetAdvisorListHandler(IAdvisorRepository advisorRepository, IMapper mapper)
-        : IRequestHandler<GetAdvisorList, Response<GetAdvisorList, AdvisorDto[]>>
+    public class GetAdvisorByIdRequestHandler(IAdvisorRepository advisorRepository, IMapper mapper)
+        : IRequestHandler<GetAdvisorByIdRequest, Response<GetAdvisorByIdRequest, AdvisorDto>>
 
     {
         private readonly IAdvisorRepository _advisorRepository = advisorRepository ?? throw new ArgumentNullException(nameof(advisorRepository));
         private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
-        public async Task<Response<GetAdvisorList, AdvisorDto[]>> Handle(GetAdvisorList request, CancellationToken cancellationToken)
+        public async Task<Response<GetAdvisorByIdRequest, AdvisorDto>> Handle(GetAdvisorByIdRequest request, CancellationToken cancellationToken)
         {
             try
             {
                 ArgumentNullException.ThrowIfNull(request);
 
-                var list = await _advisorRepository.GetAllAsync();
-                var result = _mapper.Map<AdvisorDto[]>(list.ToArray());
-                if (list != null) return request.Completed(_mapper.Map<AdvisorDto[]>(list));
+                var advisor = await _advisorRepository.GetByIdAsync(request.AdvisorId);
+                if (advisor != null) return request.Completed(_mapper.Map<AdvisorDto>(advisor));
 
-                return request.Completed<GetAdvisorList, AdvisorDto[]>(null);
+                return request.Failed<GetAdvisorByIdRequest, AdvisorDto>();
             }
             catch (Exception ex)
             {
-                return request.Failed<GetAdvisorList, AdvisorDto[]>(ex);
+                return request.Failed<GetAdvisorByIdRequest, AdvisorDto>(ex);
             }
         }
     }

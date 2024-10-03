@@ -4,9 +4,9 @@ using MediatR;
 
 namespace AdvisorManager.Application.Requests.Advisor.Queries
 {
-    public class GetAdvisorById : RequestBase<AdvisorDto>, IRequest<Response<GetAdvisorById, AdvisorDto>>
+    public class GetAdvisorByIdRequest : RequestBase<AdvisorDto>, IRequest<Response<GetAdvisorByIdRequest, AdvisorDto>>
     {
-        public GetAdvisorById(Guid advisorId)
+        public GetAdvisorByIdRequest(Guid advisorId)
         {
             ArgumentNullException.ThrowIfNull(advisorId, nameof(advisorId));
             AdvisorId = advisorId;

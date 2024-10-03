@@ -9,6 +9,8 @@ namespace AdvisorManagement.Api.Mappings
         public AdvisorProfile()
         {
             CreateMap<AdvisorDto, AdvisorModel>().ReverseMap();
+            CreateMap<CreateAdvisorModel, AdvisorDto>();
+            CreateMap<UpdateAdvisorModel, AdvisorDto>();
         }
     }
 }

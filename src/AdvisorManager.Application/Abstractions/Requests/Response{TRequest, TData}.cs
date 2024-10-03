@@ -24,11 +24,8 @@ namespace AdvisorManager.Application.Abstractions.Requests
         /// <inheritdoc/>
         public override string ToString()
         {
-            if (Data != null)
-            {
-                return $"RequestId-{Context.Request.RequestId} => {JsonConvert.SerializeObject(this, Formatting.Indented)}";
-            }
-            return $"RequestId-{Context.Request.RequestId}";
+            var serialisedObject = Data == null ? "null" : $"{JsonConvert.SerializeObject(this, Formatting.Indented)}";
+            return $"RequestId-{Context.Request.RequestId} => {serialisedObject}";
         }
     }
 }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace AdvisorManager.Application.Requests.Advisor.Queries
 {
-    public class GetAdvisorList : RequestBase<AdvisorDto[]>, IRequest<Response<GetAdvisorList, AdvisorDto[]>>
+    public class GetAdvisorListRequest : RequestBase<AdvisorDto[]>, IRequest<Response<GetAdvisorListRequest, AdvisorDto[]>>
     {
     }
 }

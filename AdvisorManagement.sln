@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvisorManager.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvisorManager.Application", "src\AdvisorManager.Application\AdvisorManager.Application.csproj", "{FE7ED6CA-DD50-4C2B-BC8E-799F4D4A4E87}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BBE2425E-230D-4759-8354-DF440F7D2235}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvisorManagementIntegration.Tests", "AdvisorManagementIntegration.Tests\AdvisorManagementIntegration.Tests.csproj", "{4168DA17-FD74-4476-938D-E93FB817850D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +37,16 @@ Global
 		{FE7ED6CA-DD50-4C2B-BC8E-799F4D4A4E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE7ED6CA-DD50-4C2B-BC8E-799F4D4A4E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE7ED6CA-DD50-4C2B-BC8E-799F4D4A4E87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4168DA17-FD74-4476-938D-E93FB817850D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4168DA17-FD74-4476-938D-E93FB817850D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4168DA17-FD74-4476-938D-E93FB817850D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4168DA17-FD74-4476-938D-E93FB817850D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4168DA17-FD74-4476-938D-E93FB817850D} = {BBE2425E-230D-4759-8354-DF440F7D2235}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8BB8253-932C-43B2-8645-A7983D06592E}

@@ -2,7 +2,7 @@
 
 namespace AdvisorManagement.Api.Models
 {
-    public abstract class AdvisorModelBase
+    public abstract class AdvisorModelBase : IApiModel
     {
         [Required(ErrorMessage = "Full Name is required")]
         [MaxLength(255, ErrorMessage = "Full Name can't exceed 255 characters")]

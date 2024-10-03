@@ -25,6 +25,11 @@ namespace AdvisorManagement.Api.Abstractions
         {
             ArgumentNullException.ThrowIfNull(context);
 
+            if (context.Status == RequestStatus.Rejected && context.Exception is null)
+            {
+                return new NotFoundObjectResult(null);
+            }
+
             if (context.Status == RequestStatus.Faulted)
             {
                 throw context.Exception;

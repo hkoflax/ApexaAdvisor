@@ -30,14 +30,37 @@ namespace AdvisorManager.Infrastructure.Persistence.Repositories
 
         public async Task<Advisor> UpdateAsync(Advisor advisor)
         {
-            _context.Advisors.Update(advisor);
+            var trackedEntity = _context.Advisors.Local.FirstOrDefault(e => e.Id == advisor.Id);
+
+            if (trackedEntity != null)
+            {
+                _context.Entry(trackedEntity).CurrentValues.SetValues(advisor);
+            }
+            else
+            {
+                _context.Advisors.Attach(advisor);
+                _context.Entry(advisor).State = EntityState.Modified;
+            }
+
             await _context.SaveChangesAsync();
             return advisor;
         }
 
         public async Task DeleteAsync(Advisor advisor)
         {
-            _context.Advisors.Remove(advisor);
+            var trackedEntity = _context.Advisors.Local.FirstOrDefault(e => e.Id == advisor.Id);
+
+            if (trackedEntity != null)
+            {
+                _context.Advisors.Remove(trackedEntity);
+            }
+            else
+            {
+                var toBeRemoved = new Advisor { Id = advisor.Id };
+                _context.Advisors.Attach(toBeRemoved);
+                _context.Advisors.Remove(toBeRemoved);
+            }
+
             await _context.SaveChangesAsync();
         }
 
