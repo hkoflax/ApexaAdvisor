@@ -12,5 +12,11 @@ namespace AdvisorManagement.Api.Models
         /// </summary>
         [Required]
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the require Unique Id for the advisor to update.
+        /// </summary>
+        [Required]
+        public string HealthStatus { get; set; }
     }
 }
