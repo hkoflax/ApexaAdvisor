@@ -3,6 +3,9 @@ using AdvisorManager.Application.Abstractions.Requests;
 
 namespace AdvisorManager.Application.Extensions
 {
+    /// <summary>
+    /// A helper class that generates response for the request.
+    /// </summary>
     public static class RequestExtensions
     {
         /// <summary>

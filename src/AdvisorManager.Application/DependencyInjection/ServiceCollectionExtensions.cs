@@ -10,6 +10,11 @@ namespace AdvisorManager.Application.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Add all service in Application layer to the DI.
+        /// </summary>
+        /// <param name="services">THe current <see cref="IServiceCollection"/>.</param>
+        /// <returns>The updated reference to the <paramref name="services"/> collection.</returns>
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services, IConfiguration configuration)
         {
             return services.AddRequestValidators()
@@ -48,7 +53,7 @@ namespace AdvisorManager.Application.DependencyInjection
             => services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         /// <summary>
-        /// Adds behaviours to the services collection.
+        /// Adds behaviors to the services collection.
         /// </summary>
         /// <param name="services">THe current <see cref="IServiceCollection"/>.</param>
         /// <returns>The updated reference to the <paramref name="services"/> collection.</returns>

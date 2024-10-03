@@ -1,5 +1,8 @@
 ﻿namespace AdvisorManager.Application.Abstractions.Requests
 {
+    /// <summary>
+    /// Represents the status of a request.
+    /// </summary>
     public enum RequestStatus
     {
         Cancelled = -1,

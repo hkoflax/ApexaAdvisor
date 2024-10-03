@@ -7,6 +7,11 @@ using MediatR;
 
 namespace AdvisorManager.Application.Handlers
 {
+    /// <summary>
+    /// Handles the get advisor list request.
+    /// </summary>
+    /// <param name="advisorRepository">The repository for managing advisor data, a <see cref="IAdvisorRepository"/>.</param>
+    /// <param name="mapper">The mapper used to map request details to advisor entities, A <see cref="IMapper"/>.</param>
     public class GetAdvisorListRequestHandler(IAdvisorRepository advisorRepository, IMapper mapper)
         : IRequestHandler<GetAdvisorListRequest, Response<GetAdvisorListRequest, AdvisorDto[]>>
 
@@ -14,6 +19,7 @@ namespace AdvisorManager.Application.Handlers
         private readonly IAdvisorRepository _advisorRepository = advisorRepository ?? throw new ArgumentNullException(nameof(advisorRepository));
         private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
+        /// <inheritdoc />
         public async Task<Response<GetAdvisorListRequest, AdvisorDto[]>> Handle(GetAdvisorListRequest request, CancellationToken cancellationToken)
         {
             try

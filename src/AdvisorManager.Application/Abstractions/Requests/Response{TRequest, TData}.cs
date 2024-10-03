@@ -2,6 +2,11 @@
 
 namespace AdvisorManager.Application.Abstractions.Requests
 {
+    /// <summary>
+    /// Represents the base class for a response to a query request.
+    /// </summary>
+    /// <typeparam name="TRequest">The type of request.</typeparam>
+    /// <typeparam name="TData">The type of data.</typeparam>
     public class Response<TRequest, TData> : Response<TRequest>
         where TRequest : RequestBase<TData>
     {

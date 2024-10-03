@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdvisorManagement.Api.Abstractions
 {
+    /// <summary>
+    /// A base class for All Api controllers.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class ApiBaseController : ControllerBase
