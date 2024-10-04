@@ -20,22 +20,30 @@ namespace AdvisorManager.Application.Handlers
         private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
         /// <inheritdoc />
-        async Task<Response<CreateAdvisorRequest, AdvisorDto>> IRequestHandler<CreateAdvisorRequest, Response<CreateAdvisorRequest, AdvisorDto>>.Handle(CreateAdvisorRequest request, CancellationToken cancellationToken)
+
+        public async Task<Response<CreateAdvisorRequest, AdvisorDto>> Handle(CreateAdvisorRequest request, CancellationToken cancellationToken)
         {
-            ArgumentNullException.ThrowIfNull(request);
-
-            var existingAdvisor = await _advisorRepository.GetBySINAsync(request.Details.SIN);
-            if (existingAdvisor != null)
+            try
             {
-                return request.Faulted<CreateAdvisorRequest, AdvisorDto>(new Exception($"Advisor with this SIN already exists"));
+                ArgumentNullException.ThrowIfNull(request);
+
+                var existingAdvisor = await _advisorRepository.GetBySINAsync(request.Details.SIN);
+                if (existingAdvisor != null)
+                {
+                    return request.Faulted<CreateAdvisorRequest, AdvisorDto>(new Exception($"Advisor with this SIN already exists"));
+                }
+
+                request.Details.HealthStatus = HealthStatusHelper.GenerateHealthStatus();
+                var newAdvisor = _mapper.Map<Advisor>(request.Details);
+
+                var result = await _advisorRepository.AddAsync(newAdvisor);
+
+                return request.Completed(_mapper.Map<AdvisorDto>(result));
             }
-
-            request.Details.HealthStatus = HealthStatusHelper.GenerateHealthStatus();
-            var newAdvisor = _mapper.Map<Advisor>(request.Details);
-
-            var result = await _advisorRepository.AddAsync(newAdvisor);
-
-            return request.Completed(_mapper.Map<AdvisorDto>(result));
+            catch (Exception ex)
+            {
+                return request.Failed<CreateAdvisorRequest, AdvisorDto>(ex);
+            }
         }
     }
 }

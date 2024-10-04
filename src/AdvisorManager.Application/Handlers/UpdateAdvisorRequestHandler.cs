@@ -22,25 +22,32 @@ namespace AdvisorManager.Application.Handlers
         /// <inheritdoc />
         public async Task<Response<UpdateAdvisorRequest, AdvisorDto>> Handle(UpdateAdvisorRequest request, CancellationToken cancellationToken)
         {
-            var thisAdvisor = await _advisorRepository.GetByIdAsync(request.Details.Id);
-
-            if (thisAdvisor == null)
-                return request.Failed<UpdateAdvisorRequest, AdvisorDto>();
-
-            var existingAdvisor = await _advisorRepository.GetBySINAsync(request.Details.SIN);
-
-            if (existingAdvisor != null)
+            try
             {
-                if (existingAdvisor.Id != thisAdvisor.Id)
-                    return request.Faulted<UpdateAdvisorRequest, AdvisorDto>(new Exception($"Advisor with this SIN already exists"));
+                var thisAdvisor = await _advisorRepository.GetByIdAsync(request.Details.Id);
+
+                if (thisAdvisor == null)
+                    return request.Failed<UpdateAdvisorRequest, AdvisorDto>();
+
+                var existingAdvisor = await _advisorRepository.GetBySINAsync(request.Details.SIN);
+
+                if (existingAdvisor != null)
+                {
+                    if (existingAdvisor.Id != thisAdvisor.Id)
+                        return request.Faulted<UpdateAdvisorRequest, AdvisorDto>(new Exception($"Advisor with this SIN already exists"));
+                }
+
+                request.Details.HealthStatus = thisAdvisor.HealthStatus;
+                var updatedAdvisor = _mapper.Map<Advisor>(request.Details);
+
+                var result = await _advisorRepository.UpdateAsync(updatedAdvisor);
+
+                return request.Completed(_mapper.Map<AdvisorDto>(result));
             }
-
-            request.Details.HealthStatus = thisAdvisor.HealthStatus;
-            var updatedAdvisor = _mapper.Map<Advisor>(request.Details);
-
-            var result = await _advisorRepository.UpdateAsync(updatedAdvisor);
-
-            return request.Completed(_mapper.Map<AdvisorDto>(result));
+            catch (Exception ex)
+            {
+                return request.Failed<UpdateAdvisorRequest, AdvisorDto>(ex);
+            }
         }
     }
 }

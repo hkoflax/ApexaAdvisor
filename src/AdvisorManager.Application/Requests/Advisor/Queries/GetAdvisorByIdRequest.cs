@@ -1,6 +1,5 @@
 ﻿using AdvisorManager.Application.Abstractions.Requests;
 using AdvisorManager.Application.Models.Advisor;
-using AdvisorManager.Application.Requests.Advisor.Commands;
 using MediatR;
 using Newtonsoft.Json;
 
