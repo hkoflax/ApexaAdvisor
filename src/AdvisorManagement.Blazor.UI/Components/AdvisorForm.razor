@@ -1,0 +1,120 @@
+﻿@using AdvisorManager.Application.Models.Advisor
+@using AdvisorManager.Application.Requests
+@using MediatR
+
+@inject IMediator _mediator
+
+@if (Advisor is not null)
+{
+    <EditForm Enhance="true" method="post" Model="Advisor" OnValidSubmit="AddOrEditAdvisor" FormName="AddOrEditAdvisorForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <h3>@Title</h3>
+        @if (isEditMode)
+        {
+            <input type="hidden" name="id" value="@Advisor.Id" />
+        }
+        <div class="form-group row">
+            <label for="FullName" class="col-sm-2 col-form-label">
+                FullName
+            </label>
+            <div class="col-sm-10">
+                <InputText id="FullName" class="form-control" placeholder="John Doe"
+                           @bind-Value="Advisor.FullName" />
+                <ValidationMessage For="@(() => Advisor.FullName)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="SIN" class="col-sm-2 col-form-label">
+                SIN
+            </label>
+            <div class="col-sm-10">
+                <InputText id="SIN" class="form-control" placeholder="123456789"
+                           @bind-Value="Advisor.SIN" />
+                <ValidationMessage For="@(() => Advisor.SIN)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="Address" class="col-sm-2 col-form-label">
+                Address
+            </label>
+            <div class="col-sm-10">
+                <InputText id="Address" class="form-control" placeholder="123 Main Street"
+                           @bind-Value="Advisor.Address" />
+                <ValidationMessage For="@(() => Advisor.Address)" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="PhoneNumber" class="col-sm-2 col-form-label">
+                PhoneNumber
+            </label>
+            <div class="col-sm-10">
+                <InputText id="PhoneNumber" class="form-control" placeholder="1234567890"
+                           @bind-Value="Advisor.PhoneNumber" />
+                <ValidationMessage For="@(() => Advisor.PhoneNumber)" />
+            </div>
+        </div>
+
+        @if (isEditMode)
+        {
+            <div class="form-group row">
+                <label for="HealthStatus" class="col-sm-2 col-form-label">
+                    HealthStatus
+                </label>
+                <div class="col-sm-10">
+                    <InputSelect id="HealthStatus" class="form-control" @bind-Value="Advisor.HealthStatus">
+                        <option value="Green">Green</option>
+                        <option value="Yellow">Yellow</option>
+                        <option value="Red">Red</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => Advisor.HealthStatus)" />
+                </div>
+            </div>
+        }
+
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </EditForm>
+
+}
+
+@code {
+    [Parameter]
+    public bool isEditMode { get; set; } = false;
+
+    [Parameter]
+    public Guid AdvisorId { get; set; }
+
+    [Parameter]
+    public EventCallback<AdvisorDto> onValidAdvisorSubmit { get; set; }
+
+    [SupplyParameterFromForm]
+    public AdvisorDto Advisor { get; set; }
+
+    private string Title => isEditMode ? $"Edit Advisor {AdvisorId}" : "Create New Advisor";
+
+    protected async override Task OnInitializedAsync()
+    {
+        if (isEditMode)
+        {
+            var response = await _mediator.Send(Queries.GetAdvisorById(AdvisorId));
+
+            if (response.Succeeded)
+            {
+                Advisor = response.Data;
+            }
+        }
+        else
+        {
+            Advisor ??= new();
+        }
+    }
+
+    private async Task AddOrEditAdvisor()
+    {
+        await onValidAdvisorSubmit.InvokeAsync(Advisor);
+    }
+}

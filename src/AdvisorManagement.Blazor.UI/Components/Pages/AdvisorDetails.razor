@@ -1,0 +1,84 @@
+﻿@page "/advisors/detail/{id:guid}"
+@using AdvisorManager.Application.Models.Advisor
+@using AdvisorManager.Application.Requests
+@using MediatR
+@rendermode InteractiveServer
+
+@inject IMediator _mediator
+@inject NavigationManager _navigationManager
+
+@if (Advisor != null)
+{
+    <div class="row">
+        <div class="col-lg-9">
+            <h1>@Advisor.FullName</h1>
+        </div>
+        <div class="col-lg-3 text-right">
+            <a class="btn btn-secondary btn-sm" href="/advisors" role="button">Go Back To List</a>
+        </div>
+    </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">SIN</th>
+                <td>@Advisor.SIN</td>
+            </tr>
+            <tr>
+                <th scope="row">Address</th>
+                <td>@Advisor.Address</td>
+            </tr>
+            <tr>
+                <th scope="row">PhoneNumber</th>
+                <td>@Advisor.PhoneNumber</td>
+            </tr>
+            <tr>
+                <th scope="row">HealthStatus</th>
+                <td style="background-color:@Advisor.HealthStatus">@Advisor.HealthStatus</td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-secondary shadow-none ms-3" href="/advisors/edit/@Advisor.Id" role="button">Edit</a>
+
+    <button @onclick="OpenConfirmDialog"
+            class="btn btn-danger shadow-none ms-3">
+        Delete
+    </button>
+}
+
+<ConfirmDialog Show="ShowConfirmDialog" Cancel="cancelDelete" OnOK="DeleteAdvisor">
+    <h3>Do you want to Delete @Advisor.FullName ?</h3>
+</ConfirmDialog>
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+
+    private AdvisorDto Advisor { get; set; }
+    private bool ShowConfirmDialog;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await _mediator.Send(Queries.GetAdvisorById(Id));
+        if (response.Succeeded)
+        {
+            Advisor = response.Data;
+        }
+    }
+
+    public void cancelDelete()
+    {
+        ShowConfirmDialog = false;
+    }
+    public async Task DeleteAdvisor()
+    {
+        var response = await _mediator.Send(Commands.DeleteAdvisorRequest(Id));
+        ShowConfirmDialog = false;
+        _navigationManager.NavigateTo("/advisors");
+    }
+
+    private void OpenConfirmDialog()
+    {
+        ShowConfirmDialog = true;
+    }
+}

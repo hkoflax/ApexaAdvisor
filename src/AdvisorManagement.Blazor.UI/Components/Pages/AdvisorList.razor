@@ -1,0 +1,63 @@
+﻿@page "/advisors"
+@page "/advisors/list"
+@using AdvisorManager.Application.Models.Advisor
+@using AdvisorManager.Application.Requests
+@using MediatR
+@attribute [StreamRendering]
+
+@inject IMediator _mediator
+<style>
+
+</style>
+<div class="row">
+    <div class="col-lg-9">
+        <h1>Advisors</h1>
+    </div>
+    <div class="col-lg-3 text-right">
+        <a class="btn btn-success btn-sm" href="/Advisors/create" role="button">Create New</a>
+    </div>
+</div>
+ 
+@if (Advisors is null)
+{
+    <div class="accordion-item"> Loading Advisors, Please Wait...</div>
+}
+else if(Advisors.Any())
+{
+    foreach (var advisor in Advisors)
+    {
+        <div class="advisor-item">
+            <div class="advisor-card">
+                <div class="card-body">
+                    <h5 class="row-cols-6">@advisor.FullName</h5>
+                    <br/>
+                    <p class="card-text"> Sin: @advisor.SIN</p>
+                    <p class="card-text"> Address: @advisor.Address</p>
+                    <p class="card-text"> Phone #: @advisor.PhoneNumber</p>
+                    <p class="card-text"> Health Status <a class="btn" style="background-color:@advisor.HealthStatus">@advisor.HealthStatus</a></p>
+                </div>
+                <div class="actions">  
+                        <a class="btn btn-primary btn-sm row-cols-1" href="/advisors/detail/@advisor.Id" role="button">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="accordion-item"> No Advisor Found.</div>
+}
+
+@code {
+
+    private List<AdvisorDto> Advisors { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await _mediator.Send(Queries.GetAdvisorList());
+        if (response.Succeeded)
+        {
+            Advisors = response.Data.ToList();
+        }
+    }
+}

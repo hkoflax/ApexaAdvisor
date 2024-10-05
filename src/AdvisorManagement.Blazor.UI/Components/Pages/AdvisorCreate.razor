@@ -1,0 +1,29 @@
+﻿@page "/advisors/create"
+@using AdvisorManager.Application.Models.Advisor
+@using AdvisorManager.Application.Requests
+@using MediatR
+ 
+@inject IMediator _mediator
+@inject NavigationManager _navigationManager
+
+<div class="row">
+    <div class="col-lg-9">
+        <h1>Create</h1>
+    </div>
+    <div class="col-lg-3 text-right">
+        <a class="btn btn-secondary btn-sm" href="/advisors" role="button">Go Back To List</a>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-6">
+        <AdvisorForm isEditMode="false" onValidAdvisorSubmit="AddAdvisor" />
+    </div>
+</div>
+@code {
+
+    private async Task AddAdvisor(AdvisorDto advisor)
+    {
+        var response = await _mediator.Send(Commands.CreateAdvisorRequest(advisor));
+        _navigationManager.NavigateTo("/advisors");
+    }
+}

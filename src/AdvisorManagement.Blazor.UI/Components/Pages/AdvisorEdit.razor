@@ -1,0 +1,29 @@
+﻿@page "/advisors/edit/{id:guid}"
+@using System.ComponentModel.DataAnnotations
+@using AdvisorManager.Application.Models.Advisor
+@using AdvisorManager.Application.Requests
+@using MediatR
+@inject IMediator _mediator
+@inject NavigationManager _navigationManager
+
+<div class="row">
+    <div class="col-lg-3 text-right">
+        <a class="btn btn-secondary btn-sm" href="/advisors/detail/@Id" role="button">Go Back To List</a>
+    </div>
+</div>
+
+<AdvisorForm isEditMode="true" AdvisorId=@Id onValidAdvisorSubmit="EditAdvisor" />
+
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+
+    [Parameter]
+    public EventCallback<AdvisorDto> onValidBookSubmit { get; set; }
+
+    private async Task EditAdvisor(AdvisorDto advisor)
+    {
+        await _mediator.Send(Commands.UpdateAdvisorRequest(advisor));
+        _navigationManager.NavigateTo("/advisors");
+    }
+}
