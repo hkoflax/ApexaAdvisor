@@ -36,28 +36,6 @@ namespace AdvisorManager.Application.Tests.Requests.Validators
         }
 
         [Fact]
-        public void Should_HaveError_When_SINIsNotValid()
-        {
-            // Arrange
-            var model = new AdvisorDto { SIN = "123" };
-
-            // Act & Assert
-            _validator.TestValidate(model).ShouldHaveValidationErrorFor(advisor => advisor.SIN)
-                .WithErrorMessage("SIN must be exactly 9 digits.");
-        }
-
-        [Fact]
-        public void Should_HaveError_When_SINIsNotDigits()
-        {
-            // Arrange
-            var model = new AdvisorDto { SIN = "12345678a" };
-
-            // Act & Assert
-            _validator.TestValidate(model).ShouldHaveValidationErrorFor(advisor => advisor.SIN)
-                .WithErrorMessage("SIN must contain only digits.");
-        }
-
-        [Fact]
         public void Should_NotHaveError_When_SINIsValid()
         {
             // Arrange

@@ -18,5 +18,10 @@ namespace AdvisorManagement.Api.Models
         /// </summary>
         [Required]
         public string HealthStatus { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Social Insurance Number (SIN) of the advisor.
+        /// </summary>
+        public string SIN { get; set; } = string.Empty;
     }
 }

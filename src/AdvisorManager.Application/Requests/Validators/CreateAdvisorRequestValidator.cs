@@ -17,6 +17,12 @@ namespace AdvisorManager.Application.Requests.Validators
                 .NotNull()
                 .WithMessage("Cannot use a null or empty object for create or update.");
 
+
+            RuleFor(c => c.Details.SIN)
+                .NotEmpty().WithMessage("SIN is required.")
+                .Length(9).WithMessage("SIN must be exactly 9 digits.")
+                .Matches(@"^\d{9}$").WithMessage("SIN must contain only digits.");
+
             RuleFor(c => c.Details)
                 .SetValidator(c => new AdvisorDtoValidator());
         }

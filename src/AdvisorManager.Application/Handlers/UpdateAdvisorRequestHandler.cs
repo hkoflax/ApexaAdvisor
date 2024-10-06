@@ -37,7 +37,7 @@ namespace AdvisorManager.Application.Handlers
                         return request.Faulted<UpdateAdvisorRequest, AdvisorDto>(new Exception($"Advisor with this SIN already exists"));
                 }
 
-                request.Details.HealthStatus = thisAdvisor.HealthStatus;
+                request.Details.SIN = thisAdvisor.SIN;
                 var updatedAdvisor = _mapper.Map<Advisor>(request.Details);
 
                 var result = await _advisorRepository.UpdateAsync(updatedAdvisor);

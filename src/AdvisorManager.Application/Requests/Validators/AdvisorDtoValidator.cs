@@ -17,11 +17,6 @@ namespace AdvisorManager.Application.Requests.Validators
                 .NotEmpty().WithMessage("Full Name is required.")
                 .MaximumLength(255).WithMessage("Full Name can't exceed 255 characters.");
 
-            RuleFor(advisor => advisor.SIN)
-                .NotEmpty().WithMessage("SIN is required.")
-                .Length(9).WithMessage("SIN must be exactly 9 digits.")
-                .Matches(@"^\d{9}$").WithMessage("SIN must contain only digits.");
-
             RuleFor(advisor => advisor.Address)
                 .MaximumLength(255).WithMessage("Address can't exceed 255 characters.")
                 .When(advisor => !string.IsNullOrWhiteSpace(advisor.Address));

@@ -50,8 +50,6 @@ namespace AdvisorManager.Application.Tests.Requests.Validators
             // Assert
             result.ShouldHaveValidationErrorFor(c => c.Details.FullName)
                 .WithErrorMessage("Full Name is required.");
-            result.ShouldHaveValidationErrorFor(c => c.Details.SIN)
-                .WithErrorMessage("SIN must be exactly 9 digits.");
             result.ShouldHaveValidationErrorFor(c => c.Details.PhoneNumber)
                 .WithErrorMessage("Phone Number must be exactly 10 digits.");
         }

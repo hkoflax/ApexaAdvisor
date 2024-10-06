@@ -18,8 +18,12 @@ try
     Log.Information("Starting API and configuring services");
 
     builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
-
-	builder.Services.AddApplicationServices(builder.Configuration);
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAllOrigins",
+            builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    });
+    builder.Services.AddApplicationServices(builder.Configuration);
 
 	var app = builder.Build();
 
@@ -29,6 +33,7 @@ try
 		app.UseSwagger();
 		app.UseSwaggerUI();
 	}
+    app.UseCors("AllowAllOrigins");
 
     app.ConfigureSerilog();
     app.UseMiddleware<GlobalExceptionHandlerMiddleware>();

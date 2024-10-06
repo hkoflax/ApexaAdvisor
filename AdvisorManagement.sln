@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvisorManager.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvisorManagement.Blazor.UI", "src\AdvisorManagement.Blazor.UI\AdvisorManagement.Blazor.UI.csproj", "{CDB55968-0381-4CDF-8223-401F8E997E8F}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "advisormanagement.react.ui", "src\advisormanagement.react.ui\advisormanagement.react.ui.esproj", "{0658202B-8D10-48A9-A7AD-F6604E8D533F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,12 @@ Global
 		{CDB55968-0381-4CDF-8223-401F8E997E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDB55968-0381-4CDF-8223-401F8E997E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDB55968-0381-4CDF-8223-401F8E997E8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0658202B-8D10-48A9-A7AD-F6604E8D533F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0658202B-8D10-48A9-A7AD-F6604E8D533F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0658202B-8D10-48A9-A7AD-F6604E8D533F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0658202B-8D10-48A9-A7AD-F6604E8D533F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0658202B-8D10-48A9-A7AD-F6604E8D533F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0658202B-8D10-48A9-A7AD-F6604E8D533F}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +75,7 @@ Global
 		{678837FB-F5AC-4CCF-B7A8-90042CD8C81A} = {BBE2425E-230D-4759-8354-DF440F7D2235}
 		{7EE0EDB5-7579-49C6-AFF7-E780F034F0A5} = {BBE2425E-230D-4759-8354-DF440F7D2235}
 		{CDB55968-0381-4CDF-8223-401F8E997E8F} = {A1505DC0-F97D-4DBE-8D7E-7DD03857878E}
+		{0658202B-8D10-48A9-A7AD-F6604E8D533F} = {A1505DC0-F97D-4DBE-8D7E-7DD03857878E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8BB8253-932C-43B2-8645-A7983D06592E}
